@@ -86,3 +86,18 @@ const { getBuildSvgPlugin } = require('vite-plugin-svg');
   });
 })();
 ```
+
+### API
+
+Current version of this plugin exports two functions:
+
+##### `getDevSvgPlugin(options)`
+Returns Vite plugin that is used for dev server only.
+
+##### `getBuildSvgPlugin(options)`
+Returns Rollup plugin used during build process.
+
+### TODO:
+- Convert plugin to TS
+- Support disabling SVGO
+- Basic test coverage
