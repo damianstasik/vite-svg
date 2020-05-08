@@ -2503,18 +2503,18 @@ vendors@^1.0.0:
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"
   integrity sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
 
-vite-plugin-svg@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-svg/-/vite-plugin-svg-0.1.0.tgz#37d186ed756fa019a8abfc9367ef4f1c540536ce"
-  integrity sha512-+4IBjrnxYoz/BhQwWPwT/N3g0Yrk6b8oRSFjqlE8rDwuUXWiv/F9+762NZWeLjRBoDMi595kzeI9MvXOkO/D6A==
+vite-plugin-svg@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-svg/-/vite-plugin-svg-0.2.0.tgz#801775b359e26ce4e6f57742a8c124480f340ce7"
+  integrity sha512-qmN/H+NBgrjVaQDxVbd2VfsHzqE2I5mP13O/uTgWqgvjltZu3eb8JzBMA7S3GJten7Bia0qUBqFqMeE+7b+TAg==
   dependencies:
     fs-extra "^9.0.0"
     svgo "^1.3.2"
 
-vite@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-0.12.0.tgz#0ef3c598116c64cac0bba39814747697e39f6e1b"
-  integrity sha512-kh98dmkKzuEMGytAhQnAQ9zDOLlzU9pGxNmteZMR6GrXQ/1RUv02qTOYwsOPO8GV7zV4a2C8xeWl1Gdi7Sq2Sw==
+vite@0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-0.13.0.tgz#dc36bf450e03599fe16390dfdb6207a50407c477"
+  integrity sha512-6oSWpVcWICYE9+Rn9W0y/8dxx5EnndrjXyEwWnYVruE4J863T6Nl8Lo0a3aiv7q8vb7OELg8tWT2UPlGPjRW6A==
   dependencies:
     "@babel/parser" "^7.9.4"
     "@rollup/plugin-json" "^4.0.3"

@@ -5,11 +5,13 @@
     <span>Count is: {{ count }}</span>
     <button @click="count++">increment</button>
   </p>
-  <MyIcon />
+  <MyIcon style="width: 50px; height: 50px;" />
+  <img src="./svgs/my-icon.svg" style="width: 50px; height: 50px;" />
+  <div class="my-icon" style="width: 50px; height: 50px;"></div>
 </template>
 
 <script>
-import MyIcon from './my-icon.svg?component';
+import MyIcon from './svgs/my-icon.svg?component';
 
 export default {
   components: { MyIcon },
@@ -24,5 +26,10 @@ h1 {
 
 h1, p {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.my-icon {
+  background: url("./svgs/my-icon.svg") center no-repeat;
+  display: inline-block;
 }
 </style>
