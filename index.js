@@ -5,14 +5,14 @@ const SVGO = require('svgo');
 
 const cache = new Map();
 
-async function optimizeAndCompileSvg(svgo, content, path) {
+async function optimizeAndCompileSvg(svgo, content, path, runtimeModuleName) {
   const { data } = await svgo.optimize(content, {
     path,
   });
 
   const { code } = compile(data, {
     mode: 'module',
-    runtimeModuleName: '/@modules/vue',
+    runtimeModuleName,
   });
 
   return `${code.replace('export ', '')}\nexport default { render }`;
@@ -36,7 +36,13 @@ function getDevSvgPlugin(options = {}) {
         const body = await readBody(ctx.body);
 
         ctx.type = 'js';
-        ctx.body = await optimizeAndCompileSvg(svgo, body, ctx.path);
+
+        ctx.body = await optimizeAndCompileSvg(
+          svgo,
+          body,
+          ctx.path,
+          '/@modules/vue'
+        );
       }
     });
   };
