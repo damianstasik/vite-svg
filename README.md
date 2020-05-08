@@ -60,7 +60,7 @@ createServer({
   plugins: [
     getDevSvgPlugin(),
   ],
-}).listen(3000);
+}).listen(3000); // Set a port you want to use
 ```
 
 #### `build.js`
