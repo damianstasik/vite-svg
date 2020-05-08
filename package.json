@@ -23,6 +23,6 @@
   },
   "peerDependencies": {
     "@vue/compiler-dom": "^3.0.0-beta.10",
-    "vite": "^0.11.5"
+    "vite": "^0.12.0"
   }
 }
