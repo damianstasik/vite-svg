@@ -1,6 +1,5 @@
-# vite-plugin-svg
-
-## Extend Vite with ability to use SVG files as Vue components.
+<h1 align="center">vite-plugin-svg</h1>
+<p align="center">Extend Vite with ability to use SVG files as Vue components.</p>
 
 ### Current state:
 POC (please read release notes before updating)
@@ -10,7 +9,9 @@ Vite is currently in an experimental state which means this plugin will change a
 ### Install
 
 ```bash
-yarn add vite-plugin-svg @vue/compiler-dom
+yarn add --dev vite-plugin-svg @vue/compiler-dom
+
+npm i -D vite-plugin-svg @vue/compiler-dom
 ```
 
 ### Usage
