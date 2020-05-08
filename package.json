@@ -1,0 +1,28 @@
+{
+  "name": "vite-plugin-svg",
+  "version": "0.1.0",
+  "description": "Use SVG files as Vue Components",
+  "keywords": [
+    "vite-plugin-svg",
+    "svg",
+    "svgo",
+    "vite",
+    "vue"
+  ],
+  "bugs": "https://github.com/visualfanatic/vite-plugin-svg/issues",
+  "repository": "visualfanatic/vite-plugin-svg",
+  "license": "MIT",
+  "author": "Damian Stasik <npm@coded.pl>",
+  "main": "index.js",
+  "dependencies": {
+    "fs-extra": "^9.0.0",
+    "svgo": "^1.3.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  },
+  "peerDependencies": {
+    "@vue/compiler-dom": "^3.0.0-beta.10",
+    "vite": "^0.11.5"
+  }
+}
