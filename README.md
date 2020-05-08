@@ -12,7 +12,7 @@ POC (please read release notes before updating)
 Vite is currently in an experimental state which means this plugin will change accordingly until the plugin API is established and frozen.
 
 #### Currently supported Vite version:  
-`0.12.0`
+`0.13.0`
 
 ### Install
 
