@@ -1,4 +1,4 @@
-const { readBody, isImportRequest } = require('vite');
+const { isImportRequest } = require('vite');
 const { compile } = require('@vue/compiler-dom');
 const { readFile } = require('fs-extra');
 const SVGO = require('svgo');
@@ -21,19 +21,16 @@ async function optimizeAndCompileSvg(svgo, content, path, runtimeModuleName) {
 function getDevSvgPlugin(options = {}) {
   const { svgoConfig } = options;
 
-  return ({ app }) => {
+  return ({ root, app }) => {
     const svgo = new SVGO(svgoConfig);
 
     app.use(async (ctx, next) => {
-      await next();
-
       if (
         ctx.path.endsWith('.svg') &&
         typeof ctx.query.component !== 'undefined' &&
-        isImportRequest(ctx) &&
-        ctx.body
+        isImportRequest(ctx)
       ) {
-        const body = await readBody(ctx.body);
+        const body = await readFile(root + ctx.path);
 
         ctx.type = 'js';
 
@@ -43,7 +40,11 @@ function getDevSvgPlugin(options = {}) {
           ctx.path,
           '/@modules/vue'
         );
+
+        return;
       }
+
+      return next();
     });
   };
 }
