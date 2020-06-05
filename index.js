@@ -1,7 +1,7 @@
 const { compile } = require('@vue/compiler-dom');
 const SVGO = require('svgo');
 
-async function compileSvg(code, isBuild) {
+async function compileSvg(code, path, isBuild) {
   const { code: compiledCode } = compile(code, {
     mode: 'module',
     runtimeModuleName: isBuild ? undefined : '/@modules/vue',
@@ -40,7 +40,7 @@ module.exports = (options = {}) => {
           if (!result) {
             const svg = await optimizeSvg(svgo, code, path);
 
-            result = await compileSvg(svg, isBuild);
+            result = await compileSvg(svg, path, isBuild);
 
             if (isBuild) {
               cache.set(id, result);
