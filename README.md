@@ -11,8 +11,9 @@ POC (please read release notes before updating)
 
 Vite is currently in an experimental state which means this plugin will change accordingly until the plugin API is established and frozen.
 
-#### Currently supported Vite version:  
-`0.13.0`
+#### Currently supported Vite version:
+
+<p><code>0.20.4</code></p>
 
 ### Install
 
@@ -59,43 +60,17 @@ export default {
 
 ### Setup
 
-#### `dev.js`
+#### `vite.config.js`
 
 ```js
-const { createServer } = require('vite');
-const { getDevSvgPlugin } = require('vite-plugin-svg');
+const svgPlugin = require('vite-plugin-svg');
 
-createServer({
+module.exports = {
   plugins: [
-    getDevSvgPlugin(),
+    svgPlugin(),
   ],
-}).listen(3000); // Set a port you want to use
+};
 ```
-
-#### `build.js`
-
-```js
-const { build } = require('vite');
-const { getBuildSvgPlugin } = require('vite-plugin-svg');
-
-(async () => {
-  await build({
-    rollupInputOptions: {
-      plugins: [getBuildSvgPlugin()],
-    },
-  });
-})();
-```
-
-### API
-
-Current version of this plugin exports two functions:
-
-##### `getDevSvgPlugin(options)`
-Returns Vite plugin that is used for dev server only.
-
-##### `getBuildSvgPlugin(options)`
-Returns Rollup plugin used during build process.
 
 ### TODO:
 - Convert plugin to TS
