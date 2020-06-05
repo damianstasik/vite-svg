@@ -1,93 +1,55 @@
-const { isImportRequest } = require('vite');
 const { compile } = require('@vue/compiler-dom');
-const { readFile } = require('fs-extra');
 const SVGO = require('svgo');
 
-const cache = new Map();
+async function compileSvg(code, isBuild) {
+  const { code: compiledCode } = compile(code, {
+    mode: 'module',
+    runtimeModuleName: isBuild ? undefined : '/@modules/vue',
+  });
 
-async function optimizeAndCompileSvg(svgo, content, path, runtimeModuleName) {
+  return `
+${compiledCode.replace('export ', '')}
+
+export default {
+  render,
+  __hmrId: ${JSON.stringify(path)}
+}
+`;
+}
+
+async function optimizeSvg(svgo, content, path) {
   const { data } = await svgo.optimize(content, {
     path,
   });
 
-  const { code } = compile(data, {
-    mode: 'module',
-    runtimeModuleName,
-  });
-
-  return `${code.replace('export ', '')}\nexport default { render }`;
+  return data;
 }
 
-function getDevSvgPlugin(options = {}) {
-  const { svgoConfig } = options;
-
-  return ({ root, app }) => {
-    const svgo = new SVGO(svgoConfig);
-
-    app.use(async (ctx, next) => {
-      if (
-        ctx.path.endsWith('.svg') &&
-        typeof ctx.query.component !== 'undefined' &&
-        isImportRequest(ctx)
-      ) {
-        const body = await readFile(root + ctx.path);
-
-        ctx.type = 'js';
-
-        ctx.body = await optimizeAndCompileSvg(
-          svgo,
-          body,
-          ctx.path,
-          '/@modules/vue'
-        );
-
-        return;
-      }
-
-      return next();
-    });
-  };
-}
-
-function getBuildSvgPlugin(options = {}) {
+module.exports = (options = {}) => {
   const { svgoConfig } = options;
   const svgo = new SVGO(svgoConfig);
+  const cache = new Map();
 
   return {
-    name: 'vite-svg',
-    resolveId(source) {
-      if (source.endsWith('.svg?component')) {
-        return source;
-      }
+    transforms: [
+      {
+        test: (path, query) => path.endsWith('.svg') && query.component != null,
+        transform: async (code, isImport, isBuild, path) => {
+          let result = cache.get(path);
 
-      return null;
-    },
-    async load(id) {
-      if (!id.endsWith('.svg?component')) {
-        return null;
-      }
+          if (!result) {
+            const svg = await optimizeSvg(svgo, code, path);
 
-      let cachedBody = cache.get(id);
+            result = await compileSvg(svg, isBuild);
 
-      if (!cachedBody) {
-        const body = await readFile(id.replace('?component', ''));
+            if (isBuild) {
+              cache.set(id, result);
+            }
+          }
 
-        cachedBody = await optimizeAndCompileSvg(svgo, body, id);
-
-        cache.set(id, cachedBody);
-      }
-
-      return {
-        code: cachedBody,
-        map: {
-          mappings: '',
+          return result;
         },
-      };
-    },
+      },
+    ],
   };
-}
-
-module.exports = {
-  getDevSvgPlugin,
-  getBuildSvgPlugin,
 };
