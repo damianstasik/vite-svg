@@ -13,19 +13,19 @@ Vite is currently in an experimental state which means this plugin will change a
 
 #### Currently supported Vite version:
 
-<p><code>0.20.4</code></p>
+<p><code>0.20.8</code></p>
 
 ### Install
 
 ```bash
-yarn add --dev vite-plugin-svg @vue/compiler-dom
+yarn add --dev vite-plugin-svg
 
-npm i -D vite-plugin-svg @vue/compiler-dom
+npm i -D vite-plugin-svg
 ```
 
 ### Usage
 
-To use SVG file as a Vue component you need to append `?component` query string to the path of your file.
+Starting from `v0.4.0` to use SVG file as a component, just import `VueComponent` from the path of the file.
 This gives you more control over how a particular SVG file should be loaded and processed:
 
 ```js
@@ -48,7 +48,7 @@ img.src = myIconUrl;
   </div>
 </template>
 <script>
-import MyIcon from './svgs/my-icon.svg?component'; // Note the `?component` part
+import { VueComponent as MyIcon } from './svgs/my-icon.svg';
 
 export default {
   components: {

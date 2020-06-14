@@ -1,20 +1,24 @@
-const { compile } = require('@vue/compiler-dom');
+const { compileTemplate } = require('@vue/compiler-sfc');
+const { join } = require('path');
+const { readFileSync } = require('fs');
 const SVGO = require('svgo');
 
-async function compileSvg(code, path, isBuild) {
-  const { code: compiledCode } = compile(code, {
-    mode: 'module',
-    runtimeModuleName: isBuild ? undefined : '/@modules/vue',
+async function compileSvg(source, path, isBuild) {
+  let { code } = compileTemplate({
+    source,
+    transformAssetUrls: false,
   });
 
-  return `
-${compiledCode.replace('export ', '')}
+  code = code.replace('export function render', 'function render');
+  code += '\nconst VueComponent = { render };';
 
-export default {
-  render,
-  __hmrId: ${JSON.stringify(path)}
-}
-`;
+  if (!isBuild) {
+    code += `\nVueComponent.__hmrId = ${JSON.stringify(path)};`;
+  }
+
+  code += `\nexport { VueComponent };`;
+
+  return code;
 }
 
 async function optimizeSvg(svgo, content, path) {
@@ -33,21 +37,31 @@ module.exports = (options = {}) => {
   return {
     transforms: [
       {
-        test: (path, query) => path.endsWith('.svg') && query.component != null,
-        transform: async (code, isImport, isBuild, path) => {
+        test: (path, query) => {
+          const isSVG = path.endsWith('.svg');
+
+          return process.env.NODE_ENV === 'production'
+            ? isSVG
+            : isSVG && query.import != null;
+        },
+        transform: async (transformedCode, _, isBuild, path) => {
           let result = cache.get(path);
 
           if (!result) {
+            const code = readFileSync(
+              isBuild ? path : join(process.cwd(), path),
+            );
+
             const svg = await optimizeSvg(svgo, code, path);
 
             result = await compileSvg(svg, path, isBuild);
 
             if (isBuild) {
-              cache.set(id, result);
+              cache.set(path, result);
             }
           }
 
-          return result;
+          return `${transformedCode}\n${result}`;
         },
       },
     ],
