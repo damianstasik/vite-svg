@@ -7,7 +7,8 @@
     "svg",
     "svgo",
     "vite",
-    "vue"
+    "vue",
+    "vue3"
   ],
   "bugs": "https://github.com/visualfanatic/vite-plugin-svg/issues",
   "repository": "visualfanatic/vite-plugin-svg",
@@ -22,6 +23,6 @@
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^3.0.0-beta.15",
-    "vite": "^0.20.4"
+    "vite": "^0.20.8"
   }
 }
