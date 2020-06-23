@@ -37,14 +37,14 @@ module.exports = (options = {}) => {
   return {
     transforms: [
       {
-        test: (path, query) => {
+        test: ({ path, query }) => {
           const isSVG = path.endsWith('.svg');
 
           return process.env.NODE_ENV === 'production'
             ? isSVG
             : isSVG && query.import != null;
         },
-        transform: async (transformedCode, _, isBuild, path) => {
+        transform: async ({ code: transformedCode, isBuild, path }) => {
           let result = cache.get(path);
 
           if (!result) {
