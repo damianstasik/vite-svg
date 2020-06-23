@@ -10,6 +10,6 @@
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.0-beta.15",
     "vite": "^1.0.0-beta.4",
-    "vite-plugin-svg": "^0.4.1"
+    "vite-plugin-svg": "^0.5.0"
   }
 }
