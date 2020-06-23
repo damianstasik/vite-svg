@@ -6,12 +6,9 @@
 - Hot Module Replacement support
 - Default SVG import behavior support
 
-### Current state:
-Vite is currently in an experimental state which means this plugin can change drastically until the plugin API is fully established and frozen.
-
 #### Currently supported Vite version:
 
-<p><code>0.20.8</code></p>
+<p><code>1.0.0-beta.4</code></p>
 
 ### Install
 
