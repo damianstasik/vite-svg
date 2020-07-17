@@ -1,5 +1,4 @@
 const { compileTemplate } = require('@vue/compiler-sfc');
-const { join } = require('path');
 const { readFileSync } = require('fs');
 const SVGO = require('svgo');
 
@@ -48,9 +47,7 @@ module.exports = (options = {}) => {
           let result = cache.get(path);
 
           if (!result) {
-            const code = readFileSync(
-              isBuild ? path : join(process.cwd(), path),
-            );
+            const code = readFileSync(path);
 
             const svg = await optimizeSvg(svgo, code, path);
 
