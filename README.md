@@ -8,7 +8,7 @@
 
 #### Currently supported Vite version:
 
-<p><code>1.0.0-beta.4</code></p>
+<p><code>1.0.0-beta.12</code></p>
 
 ### Install
 
