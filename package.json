@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-svg",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Use SVG files as Vue Components",
   "keywords": [
     "vite-plugin-svg",
