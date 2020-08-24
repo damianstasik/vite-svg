@@ -22,7 +22,7 @@
     "prettier": "^2.1.0"
   },
   "peerDependencies": {
-    "@vue/compiler-sfc": "^3.0.0-beta.15",
-    "vite": "^1.0.0-beta.12"
+    "@vue/compiler-sfc": "^3.0.0-rc.7",
+    "vite": "^1.0.0-rc.4"
   }
 }
