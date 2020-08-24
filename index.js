@@ -36,10 +36,10 @@ module.exports = (options = {}) => {
   return {
     transforms: [
       {
-        test: ({ path, query }) => {
+        test: ({ path, query, isBuild }) => {
           const isSVG = path.endsWith('.svg');
 
-          return process.env.NODE_ENV === 'production'
+          return isBuild
             ? isSVG
             : isSVG && query.import != null;
         },
