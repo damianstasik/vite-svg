@@ -2,13 +2,14 @@
 <p align="center">Extend Vite with ability to use SVG files as Vue components.</p>
 
 ### Features:
+
 - [SVGO](https://github.com/svg/svgo) optimization
 - Hot Module Replacement support
 - Default SVG import behavior support
 
 #### Currently supported Vite version:
 
-<p><code>1.0.0-rc.4</code></p>
+<p><code>2.0.0-beta.48</code></p>
 
 ### Install
 
@@ -30,12 +31,14 @@ import myIconUrl from './svgs/my-icon.svg';
 const img = document.createElement('img');
 img.src = myIconUrl;
 ```
+
 ```css
 .my-icon {
   /* Get URL to SVG file */
-  background-image: url("./svgs/my-icon.svg");
+  background-image: url('./svgs/my-icon.svg');
 }
 ```
+
 ```vue
 <template>
   <div>
@@ -61,13 +64,12 @@ export default {
 const svgPlugin = require('vite-plugin-svg');
 
 module.exports = {
-  plugins: [
-    svgPlugin(),
-  ],
+  plugins: [svgPlugin()],
 };
 ```
 
 ### TODO:
+
 - Convert plugin to TS
 - Support disabling SVGO
 - Basic test coverage
