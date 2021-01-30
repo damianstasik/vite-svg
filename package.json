@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-svg",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "description": "Use SVG files as Vue Components",
   "keywords": [
     "vite-plugin-svg",
@@ -22,7 +22,7 @@
     "prettier": "^2.1.0"
   },
   "peerDependencies": {
-    "@vue/compiler-sfc": "^3.0.0-rc.7",
-    "vite": "^1.0.0-rc.4"
+    "@vue/compiler-sfc": "^3.0.5",
+    "vite": "^2.0.0-beta.48"
   }
 }

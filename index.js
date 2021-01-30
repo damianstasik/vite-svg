@@ -27,6 +27,9 @@ async function optimizeSvg(svgo, content, path) {
 
   return data;
 }
+function isSVG(path) {
+  return path.endsWith('.svg');
+}
 
 module.exports = (options = {}) => {
   const { svgoConfig } = options;
@@ -34,33 +37,20 @@ module.exports = (options = {}) => {
   const cache = new Map();
 
   return {
-    transforms: [
-      {
-        test: ({ path, query, isBuild }) => {
-          const isSVG = path.endsWith('.svg');
-
-          return isBuild
-            ? isSVG
-            : isSVG && query.import != null;
-        },
-        transform: async ({ code: transformedCode, isBuild, path }) => {
-          let result = cache.get(path);
-
-          if (!result) {
-            const code = readFileSync(path);
-
-            const svg = await optimizeSvg(svgo, code, path);
-
-            result = await compileSvg(svg, path, isBuild);
-
-            if (isBuild) {
-              cache.set(path, result);
-            }
+    async transform(transformedCode, path) {
+      if (isSVG(path)) {
+        let result = cache.get(path);
+        if (!result) {
+          const isBuild = process.env.NODE_ENV === 'production';
+          const code = readFileSync(path);
+          const svg = await optimizeSvg(svgo, code, path, isBuild);
+          result = await compileSvg(svg, path);
+          if (isBuild) {
+            cache.set(path, result);
           }
-
-          return `${transformedCode}\n${result}`;
-        },
-      },
-    ],
+        }
+        return `${transformedCode}\n${result}`;
+      }
+    },
   };
 };
