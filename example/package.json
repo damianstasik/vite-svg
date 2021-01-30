@@ -8,8 +8,9 @@
     "vue": "^3.0.0-rc.4"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0-rc.4",
-    "vite": "^1.0.0-rc.3",
-    "vite-plugin-svg": "^0.6.0"
+    "@vitejs/plugin-vue": "^1.1.2",
+    "@vue/compiler-sfc": "^3.0.5",
+    "vite": "^2.0.0-beta.48",
+    "vite-plugin-svg": "../"
   }
 }

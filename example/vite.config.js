@@ -1,7 +1,6 @@
-const svgPlugin = require('vite-plugin-svg');
+import vue from '@vitejs/plugin-vue';
+import svgPlugin from 'vite-plugin-svg';
 
-module.exports = {
-  plugins: [
-    svgPlugin(),
-  ],
+export default {
+  plugins: [vue(), svgPlugin()],
 };
