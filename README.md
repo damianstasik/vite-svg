@@ -61,10 +61,11 @@ export default {
 #### `vite.config.js`
 
 ```js
-const svgPlugin = require('vite-plugin-svg');
+import vue from '@vitejs/plugin-vue';
+import svgPlugin from 'vite-plugin-svg';
 
 module.exports = {
-  plugins: [svgPlugin()],
+  plugins: [vue(), svgPlugin()],
 };
 ```
 
