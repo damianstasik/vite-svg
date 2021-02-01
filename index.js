@@ -2,20 +2,15 @@ const { compileTemplate } = require('@vue/compiler-sfc');
 const { readFileSync } = require('fs');
 const SVGO = require('svgo');
 
-async function compileSvg(source, path, isBuild) {
+async function compileSvg(source, id) {
   let { code } = compileTemplate({
+    id,
     source,
     transformAssetUrls: false,
   });
 
   code = code.replace('export function render', 'function render');
-  code += '\nconst VueComponent = { render };';
-
-  if (!isBuild) {
-    code += `\nVueComponent.__hmrId = ${JSON.stringify(path)};`;
-  }
-
-  code += `\nexport { VueComponent };`;
+  code += `\nexport default { render };`;
 
   return code;
 }
@@ -29,38 +24,42 @@ async function optimizeSvg(svgo, content, path) {
 }
 
 module.exports = (options = {}) => {
-  const { svgoConfig } = options;
+  const { svgoConfig, defaultExport = 'url' } = options;
   const svgo = new SVGO(svgoConfig);
   const cache = new Map();
+  const svgRegex = /\.svg(?:\?(component|url))?$/
 
   return {
-    transforms: [
-      {
-        test: ({ path, query, isBuild }) => {
-          const isSVG = path.endsWith('.svg');
+    name: 'vue-svg',
+    async transform(source, id, isBuild) {
+      const result = id.match(svgRegex);
 
-          return isBuild
-            ? isSVG
-            : isSVG && query.import != null;
-        },
-        transform: async ({ code: transformedCode, isBuild, path }) => {
-          let result = cache.get(path);
+      if (result) {
+        const type = result[1];
+
+        if ((defaultExport === 'url' && typeof type === 'undefined') || type === 'url') {
+          return source;
+        }
+
+        if ((defaultExport === 'component' && typeof type === 'undefined') || type === 'component') {
+          const idWithoutQuery = id.replace('.svg?component', '.svg')
+          let result = cache.get(idWithoutQuery);
 
           if (!result) {
-            const code = readFileSync(path);
+            const code = readFileSync(idWithoutQuery);
 
-            const svg = await optimizeSvg(svgo, code, path);
+            const svg = await optimizeSvg(svgo, code, idWithoutQuery);
 
-            result = await compileSvg(svg, path, isBuild);
+            result = await compileSvg(svg, idWithoutQuery);
 
             if (isBuild) {
               cache.set(path, result);
             }
           }
 
-          return `${transformedCode}\n${result}`;
-        },
-      },
-    ],
-  };
-};
+          return result;
+        }
+      }
+    }
+  }
+}
