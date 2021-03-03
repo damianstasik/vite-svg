@@ -31,7 +31,7 @@ async function compileSvg(source, id, options) {
 
 module.exports = (options = {}) => {
   const {
-    defaultExport = 'url',
+    defaultExport = 'component',
     svgoConfig,
     expandProps,
     svgo,
