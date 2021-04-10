@@ -82,7 +82,7 @@ module.exports = (options = {}) => {
             });
 
             if (isBuild) {
-              cache.set(path, result);
+              cache.set(idWithoutQuery, result);
             }
           }
 
