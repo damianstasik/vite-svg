@@ -20,7 +20,7 @@
     "@svgr/plugin-svgo": "^5.5.0"
   },
   "devDependencies": {
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.2"
   },
   "peerDependencies": {
     "vite": "^2.0.0-beta.61"

@@ -19,7 +19,7 @@
     "svgo": "^1.3.2"
   },
   "devDependencies": {
-    "prettier": "^2.1.0"
+    "prettier": "^2.3.2"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^3.0.0",
