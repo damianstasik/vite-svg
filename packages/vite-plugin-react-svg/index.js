@@ -33,11 +33,11 @@ module.exports = (options = {}) => {
   const {
     defaultExport = 'url',
     svgoConfig,
+    svgrConfig,
     expandProps,
     svgo,
     ref,
     memo,
-    replaceAttrValues,
     svgProps,
     titleProp,
   } = options;
@@ -76,9 +76,9 @@ module.exports = (options = {}) => {
               svgo,
               ref,
               memo,
-              replaceAttrValues,
               svgProps,
               titleProp,
+              ...svgrConfig
             });
 
             if (isBuild) {
