@@ -53,7 +53,7 @@ module.exports = (options = {}) => {
             result = await compileSvg(svg, idWithoutQuery);
 
             if (isBuild) {
-              cache.set(path, result);
+              cache.set(idWithoutQuery, result);
             }
           }
 
