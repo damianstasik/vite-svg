@@ -56,11 +56,14 @@ reactSvgPlugin({
   // Setting this to true will wrap the exported component in React.memo
   memo: false,
 
-  // Replace an attribute value by an other.
-  // The main usage of this option is to change an icon color to "currentColor" in order to inherit from text color.
-  // replaceAttrValues: { old: 'new' },
-  replaceAttrValues: null,
-
+  svgrConfig: {
+    // Replace an attribute value by an other.
+    // The main usage of this option is to change an icon color to "currentColor" in order to inherit from text color.
+    // replaceAttrValues: { old: 'new' },
+    replaceAttrValues: null,
+    // Choose if the svg should have the width and height props
+    dimensions: true
+  }
   // Add props to the root SVG tag
   // svgProps: { name: 'value' },
   svgProps: null,
