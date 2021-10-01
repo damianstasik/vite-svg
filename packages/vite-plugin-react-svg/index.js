@@ -33,7 +33,7 @@ module.exports = (options = {}) => {
   const {
     defaultExport = 'url',
     svgoConfig,
-    expandProps,
+    expandProps = 'end',
     svgo,
     ref,
     memo,
