@@ -1,8 +1,8 @@
-const { default: svgr } = require('@svgr/core');
+const { transform } = require('@svgr/core');
 const { readFileSync } = require('fs');
 
-async function compileSvg(source, id, options) {
-  const code = await svgr(
+async function compileSvg(source, id, { pragma, ...options }) {
+  const code = await transform(
     source,
     {
       ...options,
@@ -15,6 +15,7 @@ async function compileSvg(source, id, options) {
               '@babel/plugin-transform-react-jsx',
               {
                 useBuiltIns: true,
+                pragma,
               },
             ],
           ],
@@ -40,6 +41,8 @@ module.exports = (options = {}) => {
     replaceAttrValues,
     svgProps,
     titleProp,
+    jsxRuntime,
+    pragma,
   } = options;
 
   const cache = new Map();
@@ -79,6 +82,8 @@ module.exports = (options = {}) => {
               replaceAttrValues,
               svgProps,
               titleProp,
+              jsxRuntime,
+              pragma,
             });
 
             if (isBuild) {

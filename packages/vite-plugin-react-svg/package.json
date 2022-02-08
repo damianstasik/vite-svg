@@ -15,9 +15,9 @@
   "author": "Damian Stasik <npm@coded.pl>",
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.14.9",
-    "@svgr/core": "^5.5.0",
-    "@svgr/plugin-jsx": "^5.5.0",
-    "@svgr/plugin-svgo": "^5.5.0"
+    "@svgr/core": "^6.2.1",
+    "@svgr/plugin-jsx": "^6.2.1",
+    "@svgr/plugin-svgo": "^6.2.0"
   },
   "devDependencies": {
     "prettier": "^2.2.1"
